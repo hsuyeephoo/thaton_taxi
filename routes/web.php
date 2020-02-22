@@ -1,0 +1,137 @@
+<?php
+Route::get('/driver/image/{img_name}',[
+    'uses'=>'MyController@getDriverImage',
+    'as'=>'driver.image'
+]);
+Route::get('/roads/id/{road_id}/drivers',[
+    'uses'=>'MyController@getRoadDriver',
+    'as'=>'frontend.driver'
+]);
+Route::get('/quarter/id/{quarter_id}road',[
+    'uses'=>'MyController@getQuarterRoad',
+    'as'=>'frontend.road'
+]);
+Route::get("/frontend/search/quarter",[
+    'uses'=>'MyController@getSearchQuarter',
+    'as'=>'frontend.search.quarter'
+]);
+Route::get("/",[
+    'uses'=>'MyController@getWelcome',
+    'as'=>'/'
+]);
+
+Route::group(['prefix'=>'admin','middleware'=>'auth'],function() {
+    Route::post('/update/motor',[
+        'uses'=>'MotorController@postEditMotor',
+        'as'=>'update.motor'
+    ]);
+    Route::get('/motor/id/{id}/edit',[
+        'uses'=>'MotorController@getEditMotor',
+        'as'=>'edit.motor'
+    ]);
+    Route::get('/drop/motor/{id}',[
+        'uses'=>'MotorController@getDropMotor',
+        'as'=>'drop.motor'
+    ]);
+    Route::get('/search/driver',[
+        'uses'=>'MotorController@getSearchDriver',
+        'as'=>'search.driver'
+    ]);
+    Route::get('/driver/photo/{p_name}',[
+        'uses'=>'MotorController@getDriverPhoto',
+        'as'=>'driver.photo'
+    ]);
+    Route::get('/motor/all',[
+        'uses'=>'MotorController@getAllMotors',
+        'as'=>'motor.all'
+    ]);
+    Route::post('/motor/new',[
+        'uses'=>'MotorController@postNewMotor',
+        'as'=>'motor.new'
+    ]);
+    Route::get('/motor/new',[
+        'uses'=>'MotorController@getNewMotor',
+        'as'=>'motor.new'
+    ]);
+    Route::post('/edit/road',[
+        'uses'=>'RoadController@postEditRoad',
+        'as'=>'edit.road'
+    ]);
+    Route::get('/drop/road/{id}',[
+        'uses'=>'RoadController@dropRoad',
+        'as'=>'drop.road'
+    ]);
+    Route::get('/search/road',[
+        'uses'=>'RoadController@getSearchRoad',
+        'as'=>'search.road'
+    ]);
+    Route::get('/all/road',[
+        'uses'=>'RoadController@getAllRoad',
+        'as'=>'road.all'
+    ]);
+    Route::post('/new/road',[
+        'uses'=>'RoadController@postNewRoad',
+        'as'=>'road.new'
+    ]);
+    Route::get('/new/road/',[
+        'uses'=>'RoadController@GetNewRoad',
+        'as'=>'road.new'
+    ]);
+    Route::post('/edit/quarter/',[
+        'uses'=>'QuarterController@postEditQuarter',
+        'as'=>'edit'
+    ]);
+    Route::get('/delete/quarter/{id}',[
+        'uses'=>'QuarterController@deleteQuarter',
+        'as'=>'delete'
+    ]);
+    Route::get('/quarter/all',[
+        'uses'=>'QuarterController@getAllQuarter',
+        'as'=>'quarter.all'
+    ]);
+    Route::get('/quarter/new',[
+        'uses'=>'QuarterController@getNewQuarter',
+        'as'=>'quarter.new'
+    ]);
+    Route::post('/quarter/new',[
+        'uses'=>'QuarterController@postNewQuarter',
+        'as'=>'quarter.new'
+    ]);
+    Route::get('/dashboard', [
+        'uses' => 'adminController@getDashboard',
+        'as'=>'dashboard'
+    ]);//->middleware('auth');
+    Route::get('/logout',[
+        'uses'=>'admincontroller@getLogout',
+        'as'=>'logout'
+    ]);
+    Route::get('/setting',[
+        'uses'=>'adminController@getSetting',
+        'as'=>'setting'
+    ]);
+    Route::post('/update/password',[
+        'uses'=>'adminController@updatePassword',
+        'as'=>'update.password'
+    ]);
+});
+Route::group(['prefix'=>'auth'],function(){
+    Route::get("/login",[
+        'uses'=>'AuthController@getLogin',
+        'as'=>'login'
+    ]);
+    Route::get('/register',[
+        'uses'=>'AuthController@getRegister',
+        'as'=>'register'
+    ]);
+    Route::post("/register",[
+        'uses'=>'AuthController@postRegister',
+        'as'=>'register'
+    ]);
+    Route::post("/login",[
+        'uses'=>'AuthController@postLogin',
+        'as'=>'login'
+    ]);
+
+
+
+});
